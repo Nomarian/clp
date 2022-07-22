@@ -1,5 +1,17 @@
 clp = {}
 
+-- returns BOOL if file is readable (also exists)
+local function is_readable(file)
+ local f = io.open(file)
+ if f then io.close(f) end
+ return f
+end
+
+-- add PWD to package.path
+if is_readable"lua/clp.lua" then
+	package.path = "lua/?.lua;" .. package.path
+end
+
 local theme = require('theme')
 local colors = require('colors')
 local ftdetect = require('ftdetect')
